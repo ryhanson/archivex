@@ -49,14 +49,6 @@ type TarFile struct {
 
 // Create new file zip
 func (z *ZipFile) Create(name string) error {
-	// check extension .zip
-	if strings.HasSuffix(name, ".zip") != true {
-		if strings.HasSuffix(name, ".tar.gz") == true {
-			name = strings.Replace(name, ".tar.gz", ".zip", -1)
-		} else {
-			name = name + ".zip"
-		}
-	}
 	z.Name = name
 	file, err := os.Create(z.Name)
 	if err != nil {
@@ -158,8 +150,7 @@ func (z *ZipFile) AddAll(dir string, includeCurrentFolder bool) error {
 }
 
 func (z *ZipFile) Close() error {
-	err := z.Writer.Close()
-	return err
+	return z.Writer.Close()
 }
 
 // Create new Tar file
